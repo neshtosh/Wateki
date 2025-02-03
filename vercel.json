@@ -1,8 +1,0 @@
-{
-  "functions": {
-    "backend/index": {
-      "memory": 128,
-      "maxDuration": 10
-    }
-  }
-}
