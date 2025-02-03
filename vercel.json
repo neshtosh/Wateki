@@ -1,10 +1,6 @@
 {
   "functions": {
-    "api/comments": {
-      "memory": 128,
-      "maxDuration": 10
-    },
-    "api/contact": {
+    "backend/index": {
       "memory": 128,
       "maxDuration": 10
     }
