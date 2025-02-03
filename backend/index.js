@@ -7,7 +7,7 @@ const auth = require('basic-auth');
 
 const app = express();
 const port = 3000;
-
+ 
 // Enable CORS for your wateki.org domain
 app.use(cors({ origin: 'https://www.wateki.org' }));
 
