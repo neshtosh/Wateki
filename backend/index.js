@@ -118,7 +118,7 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-app.post('/api/contact', async (req, res) => {
+app.get('/api/contact', async (req, res) => {
     try {
         const messages = await ContactMessage.find();
         res.json(messages);
