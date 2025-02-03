@@ -3,12 +3,13 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const WebSocket = require('ws');
-const auth = require('basic-auth'); // Import basic-auth
+const auth = require('basic-auth');
 
 const app = express();
 const port = 3000;
 
-app.use(cors({ origin: 'http://127.0.0.1:5501' }));
+// Enable CORS for your wateki.org domain
+app.use(cors({ origin: 'https://www.wateki.org' }));
 
 const uri = "mongodb+srv://alexwateki:Homecoming@cluster0.zykfy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -54,7 +55,8 @@ wss.on('connection', function connection(ws) {
     console.log('received: %s', message);
   });
 
-  ws.send('something');
+  // Send a valid JSON message
+  ws.send(JSON.stringify({ message: 'Welcome!' }));
 });
 
 // Basic authentication middleware
