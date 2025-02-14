@@ -1,0 +1,12 @@
+{
+    "functions": {
+      "api/comments": {
+        "memory": 128,
+        "maxDuration": 10
+      },
+      "api/contact": {
+        "memory": 128,
+        "maxDuration": 10
+      }
+    }
+  }
