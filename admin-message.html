@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="images/wtki icon.png">
+    <title>Admin - View Message</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-panel {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 40px auto;
+            max-width: 600px;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="admin.html">Wa<span>teki</span> Admin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+        </div>
+    </nav>
+    <div class="admin-panel">
+        <h2>Contact Message</h2>
+        <div id="message-details">Loading...</div>
+        <a href="admin.html" class="btn btn-secondary mt-3">Back to Admin Panel</a>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const details = document.getElementById('message-details');
+        if (!id) {
+            details.innerHTML = '<p>Message ID not specified.</p>';
+            return;
+        }
+        fetch(`/api/contact/${id}`)
+            .then(res => res.json())
+            .then(msg => {
+                if (msg.error) {
+                    details.innerHTML = `<p>${msg.error}</p>`;
+                    return;
+                }
+                details.innerHTML = `
+                    <strong>Name:</strong> ${msg.name}<br>
+                    <strong>Email:</strong> <a href="mailto:${msg.email}">${msg.email}</a><br>
+                    <strong>Subject:</strong> ${msg.subject}<br>
+                    <strong>Date:</strong> ${msg.date ? new Date(msg.date).toLocaleString() : ''}<br>
+                    <strong>Message:</strong><br>
+                    <div style="margin:10px 0 20px 0; padding:10px; background:#f9f9f9; border-radius:4px;">${msg.message}</div>
+                    <a href="mailto:${msg.email}?subject=Re: ${encodeURIComponent(msg.subject)}" class="btn btn-primary btn-sm">Reply</a>
+                `;
+            })
+            .catch(() => {
+                details.innerHTML = '<p>Error loading message.</p>';
+            });
+    });
+    </script>
+</body>
+</html> 
