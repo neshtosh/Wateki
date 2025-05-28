@@ -1,5 +1,11 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./firebase-service-account.json');
+
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+} else {
+  throw new Error('FIREBASE_SERVICE_ACCOUNT environment variable is not set.');
+}
 
 // Initialize Firebase Admin
 admin.initializeApp({
